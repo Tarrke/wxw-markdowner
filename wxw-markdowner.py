@@ -22,9 +22,7 @@ def __download_file(url, file_name):
     return out_file
 
 class WXWMarkdowner:
-    """ Class for our Markdowner
-
-    """
+    """ Class for our Markdowner """
 
     def __init__(self, title, title_display, url):
         self.title = title
@@ -112,7 +110,7 @@ class WXWMarkdowner:
             else:
                 print('Cant find the title')
                 exit(1)
-            
+
             # chapName.encode('utf-8')
             print("Title:", chapName)
             out.write(u"# "+chapName.decode('utf-8'))
@@ -129,7 +127,7 @@ class WXWMarkdowner:
                 hr.extract()
 
             d = str(data)
-            
+
             out.write( Tomd( d ).markdown )
             out.write( '\n' )
             print("")
@@ -137,11 +135,6 @@ class WXWMarkdowner:
 
     def download_index(self):
         """ Download index file and analyse it so we can get the chapters urls """
-        #request = urllib.request.Request(self.index_url)
-        #request.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11')
-        #with urllib.request.urlopen(request) as response, open("tmp", 'wb') as out_file:
-        #    shutil.copyfileobj(response, out_file)
-        
         __download_file(self.index_url, "tmp")
 
         html = open("tmp").read()
@@ -172,9 +165,3 @@ if __name__ == "__main__":
     print("pandoc " + myMarkdowner.outmd + ' --epub-metadata="' + myMarkdowner.outmeta + '" --epub-stylesheet="epub-md.css" --toc --toc-depth=2 -o "' + myMarkdowner.outEpub + '"')
 
     exit(0)
-
-
-
-
-
-
