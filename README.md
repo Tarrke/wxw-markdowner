@@ -4,4 +4,5 @@ A simple markdowner for WXW websitez
 
 ## ToDo
 
-* add something
+* do a simple help menu
+* parse arguments when launched
