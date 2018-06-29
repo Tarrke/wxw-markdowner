@@ -13,7 +13,7 @@ import io
 import shutil
 
 
-def __download_file(url, file_name):
+def download_file(url, file_name):
     """Download a file from an url an record it on the disk."""
     request = urllib.request.Request(url)
     request.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11')
@@ -91,7 +91,7 @@ class WXWMarkdowner:
             print("CacheFile: " + cacheFile)
             if not os.path.exists(cacheFile):
                 print("Donwloading " + url)
-                __download_file(url, cacheFile)
+                download_file(url, cacheFile)
             else:
                 print("Using cache file")
 
@@ -135,7 +135,7 @@ class WXWMarkdowner:
 
     def download_index(self):
         """ Download index file and analyse it so we can get the chapters urls """
-        __download_file(self.index_url, "tmp")
+        download_file(self.index_url, "tmp")
 
         html = open("tmp").read()
         soup = bs.BeautifulSoup(html, 'lxml')
@@ -147,7 +147,7 @@ class WXWMarkdowner:
                 # print "append chapter"
                 self.chaps.append((cmpt,'http://wuxiaworld.com' + link['href'],link.text.strip()))
                 cmpt += 1
-            if cmpt > self.chap_limit:
+            if self.chap_limit > 0 and cmpt > self.chap_limit:
                 break
         print( self.chaps )
 
