@@ -7,17 +7,19 @@ Cf README.md for the moment
 
 import os
 import urllib.request
-import sys
-import json
 import bs4 as bs
 from tomd import Tomd
-import re
 import io
 import shutil
 
-#class MyOpener(urllib.FancyURLopener):
-#    """ A simpe class so urllib can pass for a firefox. """
-#    version = 'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11'
+
+def __download_file(url, file_name):
+    """Download a file from an url an record it on the disk."""
+    request = urllib.request.Request(url)
+    request.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11')
+    with urllib.request.urlopen(request) as response, open(file_name, 'wb') as out_file:
+        shutil.copyfileobj(response, out_file)
+    return out_file
 
 class WXWMarkdowner:
     """ Class for our Markdowner
@@ -91,10 +93,10 @@ class WXWMarkdowner:
             print("CacheFile: " + cacheFile)
             if not os.path.exists(cacheFile):
                 print("Donwloading " + url)
-                self.__download_file(url, cacheFile)
+                __download_file(url, cacheFile)
             else:
                 print("Using cache file")
-            
+
             # Parsing the HTML file
             print("Parsing file...")
             html = open(cacheFile).read()
@@ -132,14 +134,6 @@ class WXWMarkdowner:
             out.write( '\n' )
             print("")
         out.close()
-    
-    def __download_file(self, url, file_name):
-        """Download a file from an url an record it on the disk."""
-        request = urllib.request.Request(url)
-        request.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11')
-        with urllib.request.urlopen(request) as response, open(file_name, 'wb') as out_file:
-            shutil.copyfileobj(response, out_file)
-        return out_file
 
     def download_index(self):
         """ Download index file and analyse it so we can get the chapters urls """
@@ -148,7 +142,7 @@ class WXWMarkdowner:
         #with urllib.request.urlopen(request) as response, open("tmp", 'wb') as out_file:
         #    shutil.copyfileobj(response, out_file)
         
-        self.__download_file(self.index_url, "tmp")
+        __download_file(self.index_url, "tmp")
 
         html = open("tmp").read()
         soup = bs.BeautifulSoup(html, 'lxml')
