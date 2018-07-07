@@ -29,7 +29,8 @@ class WXWMarkdowner:
         self.title_display = title_display
         self.index_url = url
         #self.myopener = MyOpener()
-        self.chap_limit = 5
+        # Set this if you want to set a hard limit on the chapter recuperation
+        self.chap_limit = -1
 
     def generate_filenames(self):
         """ Generate the needed directories, files and names for thoses."""
@@ -70,9 +71,12 @@ class WXWMarkdowner:
             msg="<dc:rights>Copyright ©2018 by http://www.wuxiaworld.com</dc:rights>\n"
             f.write(msg)
 
-    def download_contents(self):
+    def download_contents(self, begin=None, end=None):
         """ Download all chapters then make a md file from them."""
         out = io.open(self.outmd, "w")
+
+        print("Arg begin:", begin)
+        print("Arg end:", end)
 
         # Mark some metadata here too
         out.write("---\n")
@@ -83,6 +87,11 @@ class WXWMarkdowner:
         out.write("\n")
 
         for chap in self.chaps:
+            if begin and int(chap[0] < begin):
+                continue
+            if end and int(chap[0] > end):
+                out.close()
+                return
             print("DL chapter", chap[0], ":", chap[2].strip())
             url = chap[1]
             num = int(chap[0])
@@ -108,8 +117,11 @@ class WXWMarkdowner:
                 chapName = data.find('b').parent.text.encode("utf8").strip()
                 data.b.extract()
             else:
-                print('Cant find the title')
-                exit(1)
+                # Maybe the title is a spoiler...
+                chapName = soup.find('h4', attrs={"class":"text-spoiler"}).text.encode("utf8").strip()
+                if len(chapName) == 0:
+                    print('Cant find the title')
+                    exit(1)
 
             # chapName.encode('utf-8')
             print("Title:", chapName)
