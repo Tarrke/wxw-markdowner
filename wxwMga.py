@@ -24,6 +24,15 @@ myMarkdowner = WXWMarkdowner(args.filename, args.title, "https://www.wuxiaworld.
 myMarkdowner.generate_filenames()
 myMarkdowner.generate_metadata()
 myMarkdowner.download_index()
+
+# Hacks for begin and end as chapter 1632 is 1632-1 and 1632-2...
+if begin > 1632:
+    begin += 1
+    end += 1
+
+if begin <= 1632 and end >= 1632:
+    end += 1
+
 myMarkdowner.download_contents(begin=begin, end=end)
 
 print('\n\n')

@@ -108,22 +108,30 @@ class WXWMarkdowner:
             print("Parsing file...")
             html = open(cacheFile).read()
             soup = bs.BeautifulSoup(html, "lxml")
-            data = soup.find('div', attrs={"class":u"fr-view"})
-
+            data = soup.find('div', attrs={"class":u"panel-default"}).find('div', attrs={"class":u"fr-view"})
+            chapName = ''
             if data.find('strong'):
-                chapName = data.find('strong').parent.text.encode('utf8').strip()
+                print('title from strong')
+                print(data.find('strong'))
+                chapName = data.find('strong').text.strip()
                 data.strong.extract()
             elif data.find('b'):
-                chapName = data.find('b').parent.text.encode("utf8").strip()
+                print('title from b')
+                chapName = data.find('b').text.strip()
                 data.b.extract()
             else:
                 # Maybe the title is a spoiler...
-                chapName = soup.find('h4', attrs={"class":"text-spoiler"}).text.encode("utf8").strip()
+                if soup.find('h4', attrs={"class":"text-spoiler"}):
+                    print('title from h4 (spoiler)')
+                    chapName = soup.find('h4', attrs={"class":"text-spoiler"}).text.strip()
                 if len(chapName) == 0:
-                    print('Cant find the title')
-                    exit(1)
+                    chapName = chap[2].strip()
+            # Hack pour la demande de fond d'un traducteur...
+            if chapName.startswith('Please'):
+                chapName = chap[2].strip()
 
-            # chapName.encode('utf-8')
+            chapName = chapName.encode("utf8")
+
             print("Title:", chapName)
             out.write(u"# "+chapName.decode('utf-8'))
             out.write('\n')
@@ -157,11 +165,11 @@ class WXWMarkdowner:
         for link in data:
             if link.text.strip().startswith("Chapter") and not link.text.strip().startswith("Chapters"):
                 # print "append chapter"
-                self.chaps.append((cmpt,'http://wuxiaworld.com' + link['href'],link.text.strip()))
+                self.chaps.append((cmpt,'http://wuxiaworld.com' + link['href'], link.text.strip()))
                 cmpt += 1
             if self.chap_limit > 0 and cmpt > self.chap_limit:
                 break
-        print( self.chaps )
+        # print( self.chaps )
 
 if __name__ == "__main__":
     print("Main things happening")
