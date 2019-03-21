@@ -16,10 +16,12 @@ import shutil
 def download_file(url, file_name):
     """Download a file from an url an record it on the disk."""
     request = urllib.request.Request(url)
-    request.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11')
+    request.add_header(
+        'User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11')
     with urllib.request.urlopen(request) as response, open(file_name, 'wb') as out_file:
         shutil.copyfileobj(response, out_file)
     return out_file
+
 
 class WCOMarkdowner:
     """ Class for our Markdowner """
@@ -34,14 +36,16 @@ class WCOMarkdowner:
 
     def generate_filenames(self):
         """ Generate the needed directories, files and names for thoses."""
-        self.outDir = os.path.join( os.path.expanduser("~") , "Documents","Epubs" )
+        self.outDir = os.path.join(
+            os.path.expanduser("~"), "Documents", "Epubs")
         if not os.path.exists(self.outDir):
             os.makedirs(self.outDir)
-        self.outEpub = os.path.join( self.outDir, 'WXW-' + self.title + '.epub' )
-        self.cachedir = os.path.join( os.path.expanduser("~"), '.cache', 'WXW')
+        self.outEpub = os.path.join(self.outDir, 'WXW-' + self.title + '.epub')
+        self.cachedir = os.path.join(os.path.expanduser("~"), '.cache', 'WXW')
         if not os.path.exists(self.cachedir):
             os.makedirs(self.cachedir)
-        self.cachedirMD = os.path.join( os.path.expanduser("~"), '.cache', 'WXW', 'md')
+        self.cachedirMD = os.path.join(
+            os.path.expanduser("~"), '.cache', 'WXW', 'md')
         if not os.path.exists(self.cachedirMD):
             os.makedirs(self.cachedirMD)
         self.outmd = os.path.join(self.cachedirMD, self.title + '.md')
@@ -63,12 +67,14 @@ class WCOMarkdowner:
             print("Generating metadata file:", self.outmeta)
             f.write("<dc:title>" + self.title_display + "</dc:title>\n")
             f.write("<dc:language>en-US</dc:language>\n")
-            f.write("<dc:creator opf:file-as=\"XXX\" opf:role=\"aut\">XXX</dc:creator>\n")
+            f.write(
+                "<dc:creator opf:file-as=\"XXX\" opf:role=\"aut\">XXX</dc:creator>\n")
             f.write("<dc:publisher>" + self.index_url + "</dc:publisher>\n")
             f.write("<dc:publisher>Tarrke</dc:publisher>\n")
-            f.write("<dc:description>" + self.title_display +" (from: www.wuxiaworld.co)</dc:description>\n")
+            f.write("<dc:description>" + self.title_display +
+                    " (from: www.wuxiaworld.co)</dc:description>\n")
             f.write("<dc:subject>Manwa Chinois</dc:subject>\n")
-            msg="<dc:rights>Copyright ©2018 by http://www.wuxiaworld.co</dc:rights>\n"
+            msg = "<dc:rights>Copyright ©2018 by http://www.wuxiaworld.co</dc:rights>\n"
             f.write(msg)
 
     def download_contents(self, begin=None, end=None):
@@ -96,7 +102,8 @@ class WCOMarkdowner:
             url = chap[1]
             num = int(chap[0])
             print("DL:", url)
-            cacheFile = os.path.join(self.cachedir, 'WXW-' + self.title + '-chapter-' + str(num) + '.html')
+            cacheFile = os.path.join(
+                self.cachedir, 'WXW-' + self.title + '-chapter-' + str(num) + '.html')
             print("CacheFile: " + cacheFile)
             if not os.path.exists(cacheFile):
                 print("Donwloading " + url)
@@ -121,11 +128,18 @@ class WCOMarkdowner:
                 data.b.extract()
             else:
                 # Maybe the title is a spoiler...
-                if soup.find('h4', attrs={"class":"text-spoiler"}):
+                if soup.find('h4', attrs={"class": "text-spoiler"}):
                     print('title from h4 (spoiler)')
-                    chapName = soup.find('h4', attrs={"class":"text-spoiler"}).text.strip()
-                if len(chapName) == 0:
-                    chapName = 'Chapter ' + chap[2].strip()
+                    chapName = soup.find(
+                        'h4', attrs={"class": "text-spoiler"}).text.strip()
+                # Maybe it's the first line ?
+                d = str(data)
+                d = d.replace('<br/>', '\n\n').replace('<div id="content">','').replace('</div>', '').strip()
+                t = d.split('\n')[0].strip()
+                if t.startswith('Chapter') :
+                    chapName = t
+            if len(chapName) == 0:
+                chapName = 'Chapter ' + chap[2].strip()
 
             chapName = chapName.encode("utf8")
 
@@ -139,17 +153,18 @@ class WCOMarkdowner:
                 if p.text == '' or p.text.startswith("Chapter") or p.text.startswith("Prologue") or p.text.startswith("Previous Chapter"):
                     p.extract()
 
-            for a in data.find_all('a', attrs={"class":"chapter-name"}):
+            for a in data.find_all('a', attrs={"class": "chapter-name"}):
                 a.extract()
 
             for hr in data.find_all('hr'):
                 hr.extract()
 
             d = str(data)
-            d = d.replace('<br/>', '\n\n').replace('<div id="content">', '').replace('</div>', '').strip()
+            d = d.replace('<br/>', '\n\n').replace('<div id="content">',
+                                                   '').replace('</div>', '').strip()
 
             for line in d.split('\n'):
-                if line.startswith('Chapter') or line.startswith('Translator') :
+                if line.startswith('Chapter') or line.startswith('Translator'):
                     print("Skipped")
                     continue
                 out.write(line)
@@ -166,24 +181,27 @@ class WCOMarkdowner:
 
         html = open("tmp").read()
         soup = bs.BeautifulSoup(html, 'lxml')
-        data = soup.find('div', attrs={'id':'list'})
-        print(data)
+        data = soup.find('div', attrs={'id': 'list'})
+        #print(data)
         data = data.find_all('a')
-        print(data)
+        #print(data)
         self.chaps = []
         cmpt = 1
         for link in data:
             # print "append chapter"
-            self.chaps.append((cmpt,'http://wuxiaworld.co/Library-of-Heaven-is-Path/' + link['href'], link.text.strip()))
+            self.chaps.append(
+                (cmpt, 'http://wuxiaworld.co/Library-of-Heaven-is-Path/' + link['href'], link.text.strip()))
             cmpt += 1
             if self.chap_limit > 0 and cmpt > self.chap_limit:
                 break
         # print( self.chaps )
 
+
 if __name__ == "__main__":
     print("Main things happening")
 
-    myMarkdowner = WCOMarkdowner("MartialGodAsura", "Martial God Asura", "https://www.wuxiaworld.com/novel/martial-god-asura")
+    myMarkdowner = WCOMarkdowner("MartialGodAsura", "Martial God Asura",
+                                 "https://www.wuxiaworld.com/novel/martial-god-asura")
     myMarkdowner.generate_filenames()
     myMarkdowner.generate_metadata()
     myMarkdowner.download_index()
@@ -191,6 +209,7 @@ if __name__ == "__main__":
 
     print('\n\n')
     print("Compile the md file into an epub:")
-    print("pandoc " + myMarkdowner.outmd + ' --epub-metadata="' + myMarkdowner.outmeta + '" --epub-stylesheet="epub-md.css" --toc --toc-depth=2 -o "' + myMarkdowner.outEpub + '"')
+    print("pandoc " + myMarkdowner.outmd + ' --epub-metadata="' + myMarkdowner.outmeta +
+          '" --epub-stylesheet="epub-md.css" --toc --toc-depth=2 -o "' + myMarkdowner.outEpub + '"')
 
     exit(0)
