@@ -20,7 +20,7 @@ if args.begin:
 if args.end:
     end = args.end
 
-myMarkdowner = WCOMarkdowner(args.filename, args.title, "https://www.wuxiaworld.co/Library-of-Heaven-is-Path/")
+myMarkdowner = WCOMarkdowner(args.filename, args.title, "https://www.wuxiaworld.co/Library-of-Heaven-is-Path/", "Heng Sao Tian Ya")
 myMarkdowner.generate_filenames()
 myMarkdowner.generate_metadata()
 myMarkdowner.download_index()
