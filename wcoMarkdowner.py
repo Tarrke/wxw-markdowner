@@ -26,10 +26,11 @@ def download_file(url, file_name):
 class WCOMarkdowner:
     """ Class for our Markdowner """
 
-    def __init__(self, title, title_display, url):
+    def __init__(self, title, title_display, url, author):
         self.title = title
         self.title_display = title_display
         self.index_url = url
+        self.author = author
         #self.myopener = MyOpener()
         # Set this if you want to set a hard limit on the chapter recuperation
         self.chap_limit = -1
@@ -87,7 +88,7 @@ class WCOMarkdowner:
         # Mark some metadata here too
         out.write("---\n")
         out.write("title: "+self.title_display+"\n")
-        out.write("author: Kindhearted Bee\n")
+        out.write("author: "+self.author+"\n")
         out.write("language: en-US\n")
         out.write("...\n")
         out.write("\n")
