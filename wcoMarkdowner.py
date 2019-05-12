@@ -202,7 +202,7 @@ if __name__ == "__main__":
     print("Main things happening")
 
     myMarkdowner = WCOMarkdowner("MartialGodAsura", "Martial God Asura",
-                                 "https://www.wuxiaworld.com/novel/martial-god-asura")
+                                 "https://www.wuxiaworld.com/novel/martial-god-asura", "")
     myMarkdowner.generate_filenames()
     myMarkdowner.generate_metadata()
     myMarkdowner.download_index()
