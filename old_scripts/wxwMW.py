@@ -5,7 +5,7 @@ from wxwMarkdowner import WXWMarkdowner
 import os
 import argparse
 
-parser = argparse.ArgumentParser(description="Battle Throught The Heavens Downloader and Ebook maker")
+parser = argparse.ArgumentParser(description="Martial World Downloader and Ebook maker")
 parser.add_argument("-b", "--begin", help="what chapter to begin the book with", type=int)
 parser.add_argument("-e", "--end", help="what chapter to end the book with", type=int)
 parser.add_argument("-t", "--title", help="Title of the Ebook", required=True)
@@ -20,7 +20,7 @@ if args.begin:
 if args.end:
     end = args.end
 
-myMarkdowner = WXWMarkdowner(args.filename, args.title, "https://www.wuxiaworld.com/novel/battle-through-the-heavens")
+myMarkdowner = WXWMarkdowner(args.filename, args.title, "https://www.wuxiaworld.com/novel/martial-world", "")
 myMarkdowner.generate_filenames()
 myMarkdowner.generate_metadata()
 myMarkdowner.download_index()
