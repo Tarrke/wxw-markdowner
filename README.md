@@ -5,9 +5,18 @@ A simple markdowner for WXW websites
 ## Usage
 
 ```bash
-$ ./wxwDownloader.py
+$ ./wxwDownloader.py -h
 usage: wxwDownloader.py [-h] -f CONFIGFILE [-b BOOKS [BOOKS ...]]
-wxwDownloader.py: error: the following arguments are required: -f/--configFile
+
+Martial World Downloader and Ebook maker
+
+optional arguments:
+  -h, --help            show this help message and exit
+  -f CONFIGFILE, --configFile CONFIGFILE
+                        Configuratin file to run
+  -b BOOKS [BOOKS ...], --books BOOKS [BOOKS ...]
+                        Books to make, space separated list. Refers to the
+                        json configuration file.
 ```
 
 Example:
