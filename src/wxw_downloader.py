@@ -71,7 +71,7 @@ def main():
             print("Overwritting options with books values")
             print(args.books)
             begin = data["books"][args.books[0]]["begin"]
-            end   = data["books"][args.books[-1]]["end"]
+            end = data["books"][args.books[-1]]["end"]
 
     print(begin)
     print(end)

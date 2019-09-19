@@ -72,18 +72,18 @@ class WXWMarkdowner:
 
     def generate_metadata(self):
         """ Generates the metadata file """
-        with open(self.outmeta, 'w') as f:
+        with open(self.outmeta, 'w') as opened_file:
             print("Generating metadata file:", self.outmeta)
-            f.write("<dc:title>" + self.title_display + "</dc:title>\n")
-            f.write("<dc:language>en-US</dc:language>\n")
-            f.write("<dc:creator opf:file-as=\"XXX\" opf:role=\"aut\">XXX</dc:creator>\n")
-            f.write("<dc:publisher>" + self.index_url + "</dc:publisher>\n")
-            f.write("<dc:publisher>Tarrke</dc:publisher>\n")
-            f.write("<dc:description>" + self.title_display +
-                    " (from: www.wuxiaworld.com)</dc:description>\n")
-            f.write("<dc:subject>Manwa Chinois</dc:subject>\n")
-            msg="<dc:rights>Copyright ©2018 by http://www.wuxiaworld.com</dc:rights>\n"
-            f.write(msg)
+            opened_file.write("<dc:title>" + self.title_display + "</dc:title>\n")
+            opened_file.write("<dc:language>en-US</dc:language>\n")
+            opened_file.write("<dc:creator opf:file-as=\"XXX\" opf:role=\"aut\">XXX</dc:creator>\n")
+            opened_file.write("<dc:publisher>" + self.index_url + "</dc:publisher>\n")
+            opened_file.write("<dc:publisher>Tarrke</dc:publisher>\n")
+            opened_file.write("<dc:description>" + self.title_display +
+                              " (from: www.wuxiaworld.com)</dc:description>\n")
+            opened_file.write("<dc:subject>Manwa Chinois</dc:subject>\n")
+            msg = "<dc:rights>Copyright ©2018 by http://www.wuxiaworld.com</dc:rights>\n"
+            opened_file.write(msg)
 
     def download_contents(self, begin=None, end=None):
         """ Download all chapters then make a md file from them."""
@@ -110,7 +110,7 @@ class WXWMarkdowner:
             url = chap[1]
             num = int(chap[0])
             print("DL:", url)
-            cache_file = os.path.join(self.cachedir, 
+            cache_file = os.path.join(self.cachedir,
                                       'WXW-' + self.title + '-chapter-' + str(num) + '.html')
             print("cache_file: " + cache_file)
             if not os.path.exists(cache_file):
@@ -215,7 +215,7 @@ class WXWMarkdowner:
 if __name__ == "__main__":
     print("Main things happening")
 
-    MYMARKDOWNER = WXWMarkdowner("MartialGodAsura", "Martial God Asura", 
+    MYMARKDOWNER = WXWMarkdowner("MartialGodAsura", "Martial God Asura",
                                  "https://www.wuxiaworld.com/novel/martial-god-asura", "")
     MYMARKDOWNER.generate_filenames()
     MYMARKDOWNER.generate_metadata()
