@@ -57,6 +57,7 @@ class WXWMarkdowner:
         print("outEpub  : ", self.outEpub)
         print("outMD    : ", self.outmd)
         print("cachedir : ", self.cachedir)
+        print("MetaData : ", self.outmeta)
 
     def generate_metadata(self):
         """ Generates the metadata file """
@@ -125,7 +126,12 @@ class WXWMarkdowner:
                 if soup.find('h4', attrs={"class":"text-spoiler"}):
                     print('title from h4 (spoiler)')
                     chapName = soup.find('h4', attrs={"class":"text-spoiler"}).text.strip()
-                if len(chapName) == 0:
+                elif data.find('p').text.startswith("Chapter"):
+                    chapName = data.find('p').text
+                    print("title from first line")
+                    print(chap[2].strip())
+                elif len(chapName) == 0:
+                    print("title from index")
                     chapName = chap[2].strip()
             # Hack pour la demande de fond d'un traducteur...
             if chapName.startswith('Please'):
@@ -154,23 +160,37 @@ class WXWMarkdowner:
             print("")
         out.close()
 
-    def download_index(self):
+    def download_index(self, starts = ["Chapter"], nostarts = ["Chapters"]):
         """ Download index file and analyse it so we can get the chapters urls """
-        download_file(self.index_url, "tmp")
+        file_name = "tmp"
+        download_file(self.index_url, file_name)
 
-        html = open("tmp").read()
+        self.get_chapter_from_index(file_name, starts, nostarts)
+
+    def get_chapter_from_index(self, file_name, starts = ["Chapter"], nostarts = ["Chapters"]):
+        with open(file_name, 'r') as f:
+            html = f.read()
         soup = bs.BeautifulSoup(html, 'lxml')
         data = soup.find_all('a')
         self.chaps = []
         cmpt = 1
+
         for link in data:
-            if link.text.strip().startswith("Chapter") and not link.text.strip().startswith("Chapters"):
+            if not link.parent.has_attr('class') or (link.parent.has_attr('class') and not "chapter-item" in link.parent['class']):
+                # This is not a chapter link
+                continue
+            if link.has_attr('role') and link['role'] == 'button':
+                print("Skipped button:", link.text.strip())
+                continue
+            if link.text.strip().startswith(tuple(starts)) and not link.text.strip().startswith(tuple(nostarts)):
                 # print "append chapter"
                 self.chaps.append((cmpt,'http://wuxiaworld.com' + link['href'], link.text.strip()))
                 cmpt += 1
+            else:
+                print("Skipped:", link.text.strip())
             if self.chap_limit > 0 and cmpt > self.chap_limit:
                 break
-        # print( self.chaps )
+        
 
 if __name__ == "__main__":
     print("Main things happening")
@@ -183,6 +203,6 @@ if __name__ == "__main__":
 
     print('\n\n')
     print("Compile the md file into an epub:")
-    print("pandoc " + myMarkdowner.outmd + ' --epub-metadata="' + myMarkdowner.outmeta + '" --epub-stylesheet="epub-md.css" --toc --toc-depth=2 -o "' + myMarkdowner.outEpub + '"')
+    print("pandoc " + myMarkdowner.outmd + ' --epub-metadata="' + myMarkdowner.outmeta + '" --css="epub-md.css" --toc --toc-depth=2 -o "' + myMarkdowner.outEpub + '"')
 
     exit(0)

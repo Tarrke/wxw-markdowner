@@ -1,10 +1,12 @@
 {
     "title": "Martial World",
     "url": "https://www.wuxiaworld.com/novel/martial-world",
-    "begin": 1,
-    "end": 5,
+    "begin": 1842,
+    "end": 1842,
     "filename": "wxw-mw",
     "author": "Cocooned Cow",
+    "starts": ["Chapter", "MW", "Afterword"],
+    "nostarts": ["Chapters"],
     "books":{
         "1": {
             "title":"The Seven Profound Martial House",
@@ -94,11 +96,11 @@
         "18": {
             "title":"Divine Rune City",
             "begin": 1547,
-            "end": 1658
+            "end": 1659
         },
         "19": {
             "title":"Legacy of the Final Trial",
-            "begin": 1659,
+            "begin": 1660,
             "end": 1752
         },
         "20": {

@@ -1,10 +1,9 @@
 #!/usr/bin/env python3
 # coding: utf-8
 
-from wxwMarkdowner import WXWMarkdowner
-import os
 import argparse
 import json
+from wxwMarkdowner import WXWMarkdowner
 
 parser = argparse.ArgumentParser(description="Martial World Downloader and Ebook maker")
 parser.add_argument("-f", "--configFile", help="Configuratin file to run", required=True)
@@ -17,6 +16,8 @@ end = 100
 filename = ""
 author = ""
 title = ""
+starts = ["Chapter"]
+nostarts = ["Chapters"]
 
 print("Config File:", args.configFile)
 
@@ -37,6 +38,14 @@ with open(args.configFile) as json_data:
         pass
     try:
         author = data["author"]
+    except:
+        pass
+    try:
+        starts = data["starts"]
+    except:
+        pass
+    try:
+        nostarts = data["nostarts"]
     except:
         pass
     # Mandatory
@@ -60,7 +69,7 @@ print(title)
 myMarkdowner = WXWMarkdowner(filename, title, "https://www.wuxiaworld.com/novel/martial-world", author)
 myMarkdowner.generate_filenames()
 myMarkdowner.generate_metadata()
-myMarkdowner.download_index()
+myMarkdowner.download_index(starts, nostarts)
 
 myMarkdowner.download_contents(begin=begin, end=end)
 

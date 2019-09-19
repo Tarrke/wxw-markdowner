@@ -22,7 +22,7 @@ optional arguments:
 Example:
 
 ```bash
-$ ./wxwGeneric.py -f MW.json -b 1 2 3 4
+$ ./wxwDownloader.py -f MW.json -b 1 2 3 4
 (...)
 Compile the md file into an epub:
 pandoc "/home/xxx/.cache/WXW/md/wxw-mw.md" --epub-stylesheet="epub-md.css" --toc --toc-depth=2 -o "/home/xxx/Documents/Epubs/WXW-wxw-mw.epub"
@@ -34,3 +34,8 @@ pandoc "/home/xxx/.cache/WXW/md/wxw-mw.md" --epub-stylesheet="epub-md.css" --toc
 * ~parse arguments when launched~
 * ~make configuration file reading~
 * Correct the output filename if books are passed as an option
+
+## Unit tests :
+~~~bash
+python3 -m unittest discover -v -s tests
+~~~
