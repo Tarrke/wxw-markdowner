@@ -5,6 +5,8 @@
     wco_markdowner
 
     see README.md
+
+    This should be deprecated, but not sure...
 """
 
 import os
@@ -12,8 +14,6 @@ import urllib.request
 import io
 import shutil
 import bs4 as bs
-from tomd import Tomd
-
 
 
 def download_file(url, file_name):
