@@ -9,11 +9,12 @@
 
 import argparse
 import json
-from wxwMarkdowner import WXWMarkdowner
+from wxw_markdowner import WXWMarkdowner
 
 
 def main():
     """ main function """
+    # pylint: disable=too-many-statements
     parser = argparse.ArgumentParser(description="Martial World Downloader and Ebook maker")
     parser.add_argument("-f", "--configFile", help="Configuratin file to run", required=True)
     parser.add_argument('-b', '--books', nargs='+', help=
@@ -91,12 +92,12 @@ def main():
     #import subprocess
 
     #args = ['pandoc', my_markdowner.outmd, '--css="./epub-md.css"',
-    #        '--toc', '--toc-depth=2', '-o', '"'+my_markdowner.outEpub+'"']
+    #        '--toc', '--toc-depth=2', '-o', '"'+my_markdowner.out_epub+'"']
     #print(args)
     #subprocess.call(args)
 
     print('pandoc "' + my_markdowner.outmd + '" --css="epub-md.css" --toc --toc-depth=2 -o "'
-          + my_markdowner.outEpub + '"')
+          + my_markdowner.out_epub + '"')
 
     exit(0)
 

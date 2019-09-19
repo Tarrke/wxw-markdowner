@@ -2,27 +2,32 @@
 # coding: utf-8
 
 """
-Cf README.md for the moment
+    wxw_markdowner
+
+    see README.md
 """
 
 import os
 import urllib.request
-import bs4 as bs
-from tomd import Tomd
 import io
 import shutil
+import bs4 as bs
+from tomd import Tomd
 
 
 def download_file(url, file_name):
     """Download a file from an url an record it on the disk."""
     request = urllib.request.Request(url)
-    request.add_header('User-Agent', 'Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) Gecko/20071127 Firefox/2.0.0.11')
+    request.add_header('User-Agent',
+                       ('Mozilla/5.0 (Windows; U; Windows NT 5.1; it; rv:1.8.1.11) '
+                        'Gecko/20071127 Firefox/2.0.0.11'))
     with urllib.request.urlopen(request) as response, open(file_name, 'wb') as out_file:
         shutil.copyfileobj(response, out_file)
     return out_file
 
 class WXWMarkdowner:
     """ Class for our Markdowner """
+    # pylint: disable=too-many-instance-attributes
 
     def __init__(self, title, title_display, url, author):
         self.title = title
@@ -32,29 +37,35 @@ class WXWMarkdowner:
         # Set this if you want to set a hard limit on the chapter recuperation
         self.chap_limit = -1
         self.author = author
+        self.out_dir = os.path.join(os.path.expanduser("~"), "Documents", "Epubs")
+        self.out_epub = ""
+        self.cachedir = ""
+        self.cachedir_md = ""
+        self.outmd = ""
+        self.outmeta = ""
+        self.chaps = []
 
     def generate_filenames(self):
         """ Generate the needed directories, files and names for thoses."""
-        self.outDir = os.path.join( os.path.expanduser("~") , "Documents","Epubs" )
-        if not os.path.exists(self.outDir):
-            os.makedirs(self.outDir)
-        self.outEpub = os.path.join( self.outDir, 'WXW-' + self.title + '.epub' )
-        self.cachedir = os.path.join( os.path.expanduser("~"), '.cache', 'WXW')
+        if not os.path.exists(self.out_dir):
+            os.makedirs(self.out_dir)
+        self.out_epub = os.path.join(self.out_dir, 'WXW-' + self.title + '.epub')
+        self.cachedir = os.path.join(os.path.expanduser("~"), '.cache', 'WXW')
         if not os.path.exists(self.cachedir):
             os.makedirs(self.cachedir)
-        self.cachedirMD = os.path.join( os.path.expanduser("~"), '.cache', 'WXW', 'md')
-        if not os.path.exists(self.cachedirMD):
-            os.makedirs(self.cachedirMD)
-        self.outmd = os.path.join(self.cachedirMD, self.title + '.md')
+        self.cachedir_md = os.path.join(os.path.expanduser("~"), '.cache', 'WXW', 'md')
+        if not os.path.exists(self.cachedir_md):
+            os.makedirs(self.cachedir_md)
+        self.outmd = os.path.join(self.cachedir_md, self.title + '.md')
         if os.path.exists(self.outmd):
             os.remove(self.outmd)
-        self.outmeta = os.path.join(self.cachedirMD, self.title + '.meta')
+        self.outmeta = os.path.join(self.cachedir_md, self.title + '.meta')
         if os.path.exists(self.outmeta):
             os.remove(self.outmeta)
 
         print("Directories & files")
-        print("outDir   : ", self.outDir)
-        print("outEpub  : ", self.outEpub)
+        print("out_dir   : ", self.out_dir)
+        print("out_epub  : ", self.out_epub)
         print("outMD    : ", self.outmd)
         print("cachedir : ", self.cachedir)
         print("MetaData : ", self.outmeta)
@@ -68,7 +79,8 @@ class WXWMarkdowner:
             f.write("<dc:creator opf:file-as=\"XXX\" opf:role=\"aut\">XXX</dc:creator>\n")
             f.write("<dc:publisher>" + self.index_url + "</dc:publisher>\n")
             f.write("<dc:publisher>Tarrke</dc:publisher>\n")
-            f.write("<dc:description>" + self.title_display +" (from: www.wuxiaworld.com)</dc:description>\n")
+            f.write("<dc:description>" + self.title_display +
+                    " (from: www.wuxiaworld.com)</dc:description>\n")
             f.write("<dc:subject>Manwa Chinois</dc:subject>\n")
             msg="<dc:rights>Copyright ©2018 by http://www.wuxiaworld.com</dc:rights>\n"
             f.write(msg)
@@ -98,111 +110,121 @@ class WXWMarkdowner:
             url = chap[1]
             num = int(chap[0])
             print("DL:", url)
-            cacheFile = os.path.join(self.cachedir, 'WXW-' + self.title + '-chapter-' + str(num) + '.html')
-            print("CacheFile: " + cacheFile)
-            if not os.path.exists(cacheFile):
+            cache_file = os.path.join(self.cachedir, 
+                                      'WXW-' + self.title + '-chapter-' + str(num) + '.html')
+            print("cache_file: " + cache_file)
+            if not os.path.exists(cache_file):
                 print("Donwloading " + url)
-                download_file(url, cacheFile)
+                download_file(url, cache_file)
             else:
                 print("Using cache file")
 
             # Parsing the HTML file
             print("Parsing file...")
-            html = open(cacheFile).read()
+            html = open(cache_file).read()
             soup = bs.BeautifulSoup(html, "lxml")
-            data = soup.find('div', attrs={"class":u"panel-default"}).find('div', attrs={"class":u"fr-view"})
-            chapName = ''
+            data = soup.find('div', attrs={"class":u"panel-default"}
+                            ).find('div', attrs={"class":u"fr-view"})
+            chap_name = ''
             if data.find('strong'):
                 print('title from strong')
                 print(data.find('strong'))
-                chapName = data.find('strong').text.strip()
+                chap_name = data.find('strong').text.strip()
                 data.strong.extract()
             elif data.find('b'):
                 print('title from b')
-                chapName = data.find('b').text.strip()
+                chap_name = data.find('b').text.strip()
                 data.b.extract()
             else:
                 # Maybe the title is a spoiler...
                 if soup.find('h4', attrs={"class":"text-spoiler"}):
                     print('title from h4 (spoiler)')
-                    chapName = soup.find('h4', attrs={"class":"text-spoiler"}).text.strip()
+                    chap_name = soup.find('h4', attrs={"class":"text-spoiler"}).text.strip()
                 elif data.find('p').text.startswith("Chapter"):
-                    chapName = data.find('p').text
+                    chap_name = data.find('p').text
                     print("title from first line")
                     print(chap[2].strip())
-                elif len(chapName) == 0:
+                elif not chap_name:
                     print("title from index")
-                    chapName = chap[2].strip()
+                    chap_name = chap[2].strip()
             # Hack pour la demande de fond d'un traducteur...
-            if chapName.startswith('Please'):
-                chapName = chap[2].strip()
+            if chap_name.startswith('Please'):
+                chap_name = chap[2].strip()
 
-            chapName = chapName.encode("utf8")
+            chap_name = chap_name.encode("utf8")
 
-            print("Title:", chapName)
-            out.write(u"# "+chapName.decode('utf-8'))
+            print("Title:", chap_name)
+            out.write(u"# "+chap_name.decode('utf-8'))
             out.write('\n')
 
-            for p in data.find_all('p'):
-                if p.text == '' or p.text.startswith("Chapter") or p.text.startswith("Prologue") or p.text.startswith("Previous Chapter"):
-                    p.extract()
+            for paragraph in data.find_all('p'):
+                if (paragraph.text == '' or paragraph.text.startswith("Chapter") or
+                        paragraph.text.startswith("Prologue") or
+                        paragraph.text.startswith("Previous Chapter")):
+                    paragraph.extract()
 
-            for a in data.find_all('a', attrs={"class":"chapter-name"}):
-                a.extract()
+            for alink in data.find_all('a', attrs={"class":"chapter-name"}):
+                alink.extract()
 
-            for hr in data.find_all('hr'):
-                hr.extract()
+            for hrules in data.find_all('hr'):
+                hrules.extract()
 
-            d = str(data)
+            data_str = str(data)
 
-            out.write( Tomd( d ).markdown )
-            out.write( '\n' )
+            out.write(Tomd(data_str).markdown)
+            out.write('\n')
             print("")
         out.close()
 
-    def download_index(self, starts = ["Chapter"], nostarts = ["Chapters"]):
+    def download_index(self, starts=["Chapter"], nostarts=["Chapters"]): # pylint: disable=dangerous-default-value
         """ Download index file and analyse it so we can get the chapters urls """
         file_name = "tmp"
         download_file(self.index_url, file_name)
 
         self.get_chapter_from_index(file_name, starts, nostarts)
 
-    def get_chapter_from_index(self, file_name, starts = ["Chapter"], nostarts = ["Chapters"]):
-        with open(file_name, 'r') as f:
-            html = f.read()
+    def get_chapter_from_index(self, file_name, starts=["Chapter"], nostarts=["Chapters"]):
+        """ Get the chapter list from an html index file """
+        # pylint: disable=dangerous-default-value
+        with open(file_name, 'r') as opened_file:
+            html = opened_file.read()
         soup = bs.BeautifulSoup(html, 'lxml')
         data = soup.find_all('a')
         self.chaps = []
         cmpt = 1
 
         for link in data:
-            if not link.parent.has_attr('class') or (link.parent.has_attr('class') and not "chapter-item" in link.parent['class']):
+            if (not link.parent.has_attr('class') or (link.parent.has_attr('class') and not
+                                                      "chapter-item" in link.parent['class'])):
                 # This is not a chapter link
                 continue
             if link.has_attr('role') and link['role'] == 'button':
                 print("Skipped button:", link.text.strip())
                 continue
-            if link.text.strip().startswith(tuple(starts)) and not link.text.strip().startswith(tuple(nostarts)):
+            if (link.text.strip().startswith(tuple(starts)) and
+                    not link.text.strip().startswith(tuple(nostarts))):
                 # print "append chapter"
-                self.chaps.append((cmpt,'http://wuxiaworld.com' + link['href'], link.text.strip()))
+                self.chaps.append((cmpt, 'http://wuxiaworld.com' + link['href'], link.text.strip()))
                 cmpt += 1
             else:
                 print("Skipped:", link.text.strip())
             if self.chap_limit > 0 and cmpt > self.chap_limit:
                 break
-        
+
 
 if __name__ == "__main__":
     print("Main things happening")
 
-    myMarkdowner = WXWMarkdowner("MartialGodAsura", "Martial God Asura", "https://www.wuxiaworld.com/novel/martial-god-asura", "")
-    myMarkdowner.generate_filenames()
-    myMarkdowner.generate_metadata()
-    myMarkdowner.download_index()
-    myMarkdowner.download_contents()
+    MYMARKDOWNER = WXWMarkdowner("MartialGodAsura", "Martial God Asura", 
+                                 "https://www.wuxiaworld.com/novel/martial-god-asura", "")
+    MYMARKDOWNER.generate_filenames()
+    MYMARKDOWNER.generate_metadata()
+    MYMARKDOWNER.download_index()
+    MYMARKDOWNER.download_contents()
 
     print('\n\n')
     print("Compile the md file into an epub:")
-    print("pandoc " + myMarkdowner.outmd + ' --epub-metadata="' + myMarkdowner.outmeta + '" --css="epub-md.css" --toc --toc-depth=2 -o "' + myMarkdowner.outEpub + '"')
+    print("pandoc " + MYMARKDOWNER.outmd + ' --epub-metadata="' + MYMARKDOWNER.outmeta +
+          '" --css="epub-md.css" --toc --toc-depth=2 -o "' + MYMARKDOWNER.out_epub + '"')
 
     exit(0)

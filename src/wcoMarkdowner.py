@@ -2,15 +2,18 @@
 # coding: utf-8
 
 """
-Cf README.md for the moment
+    wco_markdowner
+
+    see README.md
 """
 
 import os
 import urllib.request
-import bs4 as bs
-from tomd import Tomd
 import io
 import shutil
+import bs4 as bs
+from tomd import Tomd
+
 
 
 def download_file(url, file_name):
