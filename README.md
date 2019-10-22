@@ -35,7 +35,8 @@ pandoc "/home/xxx/.cache/WXW/md/wxw-mw.md" --epub-stylesheet="epub-md.css" --toc
 * ~make configuration file reading~
 * Correct the output filename if books are passed as an option
 
-## Unit tests :
-~~~bash
+## Unit tests
+
+~~~ bash
 python3 -m unittest discover -v -s tests
 ~~~
