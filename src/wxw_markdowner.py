@@ -186,6 +186,7 @@ class WXWMarkdowner:
     def get_chapter_from_index(self, file_name, starts=["Chapter"], nostarts=["Chapters"]):
         """ Get the chapter list from an html index file """
         # pylint: disable=dangerous-default-value
+        print("get_chapter_from_index starts")
         with open(file_name, 'r') as opened_file:
             html = opened_file.read()
         soup = bs.BeautifulSoup(html, 'lxml')
@@ -197,6 +198,7 @@ class WXWMarkdowner:
             if (not link.parent.has_attr('class') or (link.parent.has_attr('class') and not
                                                       "chapter-item" in link.parent['class'])):
                 # This is not a chapter link
+                print("Skipped:", link.text.strip())
                 continue
             if link.has_attr('role') and link['role'] == 'button':
                 print("Skipped button:", link.text.strip())
@@ -210,7 +212,8 @@ class WXWMarkdowner:
                 print("Skipped:", link.text.strip())
             if self.chap_limit > 0 and cmpt > self.chap_limit:
                 break
-
+        
+        print("get_chapter_from_index stops")
 
 if __name__ == "__main__":
     print("Main things happening")
