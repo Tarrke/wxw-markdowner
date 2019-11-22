@@ -1,0 +1,142 @@
+{
+    "title": "Library of Heaven's Path",
+    "url": "https://www.wuxiaworld.co/Library-of-Heaven-is-Path/",
+    "begin": 1,
+    "end": 5,
+    "filename": "wxw-lhp",
+    "author": "Heng Sao Tian Ya",
+    "starts": ["Chapter", "LHP", "Afterword"],
+    "nostarts": ["Chapters", "Translator"],
+    "books":{
+        "1": {
+            "title":"Volume 1",
+            "begin": 1,
+            "end": 80
+        },
+        "2": {
+            "title":"Rising Star of the Sky Fortune Kingdom",
+            "begin": 107,
+            "end": 166
+        },
+        "3": {
+            "title":"Adventures in the Southern Wilderness",
+            "begin": 167,
+            "end": 224
+        },
+        "4": {
+            "title":"Total Faction Martial Meeting",
+            "begin": 225,
+            "end": 301
+        },
+        "5": {
+            "title":"Subterfuge in Green Mulberry City",
+            "begin": 302,
+            "end": 353
+        },
+        "6": {
+            "title":"Divine Phoenix Island",
+            "begin": 354,
+            "end": 409
+        },
+        "7": {
+            "title":"Avenger",
+            "begin": 410,
+            "end": 439
+        },
+        "8": {
+            "title":"The South Sea Battlefield",
+            "begin": 440,
+            "end": 514
+        },
+        "9": {
+            "title":"Curse of the Bloodslaughter Steppes",
+            "begin": 515,
+            "end": 670
+        },
+        "10": {
+            "title":"Terror of the South Sea",
+            "begin": 671,
+            "end": 754
+        },
+        "11": {
+            "title":"Hunt of the Asura Divine Kingdom",
+            "begin": 755,
+            "end": 872
+        },
+        "12": {
+            "title":"Plot of the Ancient Devil",
+            "begin": 873,
+            "end": 953
+        },
+        "13": {
+            "title":"The Ancient Phoenix Clan",
+            "begin": 954,
+            "end": 1075
+        },
+        "14": {
+            "title":"True Martial World",
+            "begin": 1076,
+            "end": 1156
+        },
+        "15": {
+            "title":"Geniuses of the Divine Realm First Martial Meeting",
+            "begin": 1157,
+            "end": 1332
+        },
+        "16": {
+            "title":"Return to the Abyss",
+            "begin": 1333,
+            "end": 1394
+        },
+        "17": {
+            "title":"The Asura Road",
+            "begin": 1395,
+            "end": 1546
+        },
+        "18": {
+            "title":"Divine Rune City",
+            "begin": 1547,
+            "end": 1659
+        },
+        "19": {
+            "title":"Legacy of the Final Trial",
+            "begin": 1660,
+            "end": 1752
+        },
+        "20": {
+            "title":"Faith and Fury",
+            "begin": 1753,
+            "end": 1800
+        },
+        "21": {
+            "title":"Mysteries of the Akashic Dream Battlefield",
+            "begin": 1801,
+            "end": 1870
+        },
+        "22": {
+            "title":"Flight of the Ancient Races",
+            "begin": 1871,
+            "end": 1933
+        },
+        "23": {
+            "title":"The Samsara of Life and Death",
+            "begin": 1934,
+            "end": 2023
+        },
+        "24": {
+            "title":"The Light in the Dark",
+            "begin": 2024,
+            "end": 2099
+        },
+        "25": {
+            "title":"Depths of the Abyss",
+            "begin": 2100,
+            "end": 2215
+        },
+        "26": {
+            "title":"Last Stand of the 33 Heavens",
+            "begin": 2216,
+            "end": 2276
+        }
+    }
+}
