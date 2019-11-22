@@ -10,6 +10,7 @@
 import argparse
 import json
 from wxw_markdowner import WXWMarkdowner
+from wco_markdowner import WCOMarkdowner
 
 
 def main():
@@ -49,6 +50,10 @@ def main():
         except KeyError:
             pass
         try:
+            url = data["url"]
+        except KeyError:
+            pass
+        try:
             author = data["author"]
         except KeyError:
             pass
@@ -78,8 +83,10 @@ def main():
     print(author)
     print(title)
 
-    my_markdowner = WXWMarkdowner(filename, title,
-                                  "https://www.wuxiaworld.com/novel/martial-world", author)
+    print(url)
+
+    # How to get the Right Markdowner ???
+    my_markdowner = WXWMarkdowner(filename, title, url, author)
     my_markdowner.generate_filenames()
     my_markdowner.generate_metadata()
     my_markdowner.download_index(starts, nostarts)
