@@ -9,8 +9,8 @@
 
 import argparse
 import json
-from wxw_markdowner import WXWMarkdowner
-from wco_markdowner import WCOMarkdowner
+from wxw_markdowner import WXWMarkdowner # pylint: disable=unused-import
+from wco_markdowner import WCOMarkdowner # pylint: disable=unused-import
 
 
 def main():
@@ -90,8 +90,7 @@ def main():
     print(md_class)
     print(url)
 
-    # How to get the Right Markdowner ???
-    my_markdowner = eval(md_class)(filename, title, url, author)
+    my_markdowner = eval(md_class)(filename, title, url, author) #pylint: disable=eval-used
     my_markdowner.generate_filenames()
     my_markdowner.generate_metadata()
     exit(0)
