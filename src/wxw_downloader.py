@@ -31,12 +31,17 @@ def main():
     title = ""
     starts = ["Chapter"]
     nostarts = ["Chapters"]
+    md_class = "WXWMarkdowner"
 
     print("Config File:", args.configFile)
 
     with open(args.configFile) as json_data:
         data = json.load(json_data)
         # Non Required Options
+        try:
+            md_class = data["mdClass"]
+        except KeyError:
+            pass
         try:
             begin = data["begin"]
         except KeyError:
@@ -82,13 +87,14 @@ def main():
     print(end)
     print(author)
     print(title)
-
+    print(md_class)
     print(url)
 
     # How to get the Right Markdowner ???
-    my_markdowner = WXWMarkdowner(filename, title, url, author)
+    my_markdowner = eval(md_class)(filename, title, url, author)
     my_markdowner.generate_filenames()
     my_markdowner.generate_metadata()
+    exit(0)
     my_markdowner.download_index(starts, nostarts)
 
     my_markdowner.download_contents(begin=begin, end=end)
