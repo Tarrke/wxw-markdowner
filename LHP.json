@@ -3,10 +3,11 @@
     "url": "https://www.wuxiaworld.co/Library-of-Heaven-is-Path/",
     "begin": 1,
     "end": 5,
-    "filename": "wxw-lhp",
+    "filename": "lhp",
     "author": "Heng Sao Tian Ya",
     "starts": ["Chapter", "LHP", "Afterword"],
     "nostarts": ["Chapters", "Translator"],
+    "mdClass": "WCOMarkdowner",
     "books":{
         "1": {
             "title":"Volume 1",
