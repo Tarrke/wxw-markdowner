@@ -212,7 +212,7 @@ class WXWMarkdowner:
                 print("Skipped:", link.text.strip())
             if self.chap_limit > 0 and cmpt > self.chap_limit:
                 break
-        
+
         print("get_chapter_from_index stops")
 
 if __name__ == "__main__":
