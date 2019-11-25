@@ -35,7 +35,6 @@ class WCOMarkdowner:
         self.title_display = title_display
         self.index_url = url
         self.author = author
-        #self.myopener = MyOpener()
         # Set this if you want to set a hard limit on the chapter recuperation
         self.chap_limit = -1
         self.out_dir = ""
@@ -152,7 +151,15 @@ class WCOMarkdowner:
                 if s_title.startswith('Chapter'):
                     chapter_name = s_title
             if chapter_name == "":
-                chapter_name = 'Chapter ' + chap[2].strip()
+                # Let's try looking for div bookname
+                book_name = soup.find('div', attrs={'class': 'bookname'}).find('h1').text
+                print(book_name)
+                if book_name != "":
+                    print("Chapter title from bookname div")
+                    chapter_name = 'Chapter ' + book_name
+                else:
+                    print("Chapter title from index")
+                    chapter_name = 'Chapter ' + chap[2].strip()
 
             chapter_name = chapter_name.encode("utf8")
 
@@ -189,7 +196,7 @@ class WCOMarkdowner:
             print("")
         out.close()
 
-    def download_index(self):
+    def download_index(self, starts=["Chapter"], nostarts=["Payup"]):
         """ Download index file and analyse it so we can get the chapters urls """
         download_file(self.index_url, "tmp")
 
@@ -210,7 +217,7 @@ class WCOMarkdowner:
             cmpt += 1
             if self.chap_limit > 0 and cmpt > self.chap_limit:
                 break
-        # print( self.chaps )
+        print(self.chaps)
 
 
 if __name__ == "__main__":

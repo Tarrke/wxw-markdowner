@@ -93,9 +93,8 @@ def main():
     my_markdowner = eval(md_class)(filename, title, url, author) #pylint: disable=eval-used
     my_markdowner.generate_filenames()
     my_markdowner.generate_metadata()
-    exit(0)
-    my_markdowner.download_index(starts, nostarts)
 
+    my_markdowner.download_index(starts, nostarts)
     my_markdowner.download_contents(begin=begin, end=end)
 
     print('\n\n')
