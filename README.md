@@ -30,13 +30,16 @@ pandoc "/home/xxx/.cache/WXW/md/wxw-mw.md" --epub-stylesheet="epub-md.css" --toc
 
 ## ToDo
 
+* Correct the output filename if books are passed as an option
+* add some debug mode with verbose level
+* fix the import warning
+
+## Done
+
+* ~Load the good markdowner~
 * ~do a simple help menu~
 * ~parse arguments when launched~
 * ~make configuration file reading~
-* Correct the output filename if books are passed as an option
-* Load the good markdowner
-* add some debug mode with verbose level
-* fix the import warning
 
 ## Unit tests
 
