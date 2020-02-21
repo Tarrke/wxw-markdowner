@@ -1,0 +1,28 @@
+{
+    "title": "Heavenly Jewel Change",
+    "url": "https://www.wuxiaworld.com/novel/heavenly-jewel-change/",
+    "begin": 153,
+    "end": 153,
+    "filename": "hjc",
+    "author": "Inconnu",
+    "starts": ["Chapter"],
+    "nostarts": ["Chapters", "Translator"],
+    "mdClass": "WXWMarkdowner",
+    "books":{
+        "0": {
+            "title": "Debug",
+            "begin": 65,
+            "end": 66
+        },
+        "1": {
+            "title":"Volume 1",
+            "begin": 1,
+            "end": 27
+        },
+        "2": {
+            "title":"Volume 2",
+            "begin": 28,
+            "end": 56
+        }
+    }
+}
