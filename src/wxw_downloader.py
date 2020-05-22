@@ -11,6 +11,7 @@ import argparse
 import json
 from wxw_markdowner import WXWMarkdowner # pylint: disable=unused-import
 from wco_markdowner import WCOMarkdowner # pylint: disable=unused-import
+from nf_markdowner  import NFMarkdowner  # pylint: disable=unused-import
 
 
 def main():
