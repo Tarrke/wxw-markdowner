@@ -1,0 +1,23 @@
+{
+    "title": "Dungeon Predator",
+    "url": "https://www.wuxiaworld.com/novel/dungeon-predator",
+    "begin": 153,
+    "end": 153,
+    "filename": "dp",
+    "author": "Boko",
+    "starts": ["Chapter", "Afterword"],
+    "nostarts": ["Chapters", "Translator"],
+    "mdClass": "WXWMarkdowner",
+    "books":{
+        "1": {
+            "title":"Volume 1",
+            "begin": 1,
+            "end": 26
+        },
+        "2": {
+            "title":"Volume 2",
+            "begin": 27,
+            "end": 49
+        }
+    }
+}

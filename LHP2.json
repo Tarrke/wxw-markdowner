@@ -1,0 +1,113 @@
+{
+    "title": "Library of Heaven's Path",
+    "url": "https://novelfull.com/library-of-heavens-path.html",
+    "begin": 153,
+    "end": 153,
+    "filename": "lhp",
+    "author": "Heng Sao Tian Ya",
+    "starts": ["Chapter", "LHP", "Afterword"],
+    "nostarts": ["Chapters", "Translator"],
+    "mdClass": "NFMarkdowner",
+    "books":{
+        "0": {
+            "title": "Debug",
+            "begin": 65,
+            "end": 66
+        },
+        "1": {
+            "title":"Hongtian Academy",
+            "begin": 1,
+            "end": 80
+        },
+        "2": {
+            "title":"Volume 2",
+            "begin": 81,
+            "end": 146
+        },
+        "3": {
+            "title":"Volume 3",
+            "begin": 147,
+            "end": 238
+        },
+        "4": {
+            "title":"Volume 4",
+            "begin": 239,
+            "end": 315
+        },
+        "5": {
+            "title":"Volume 5",
+            "begin": 316,
+            "end": 411
+        },
+        "6": {
+            "title":"Volume 6",
+            "begin": 412,
+            "end": 566
+        },
+        "7": {
+            "title":"Volume 7",
+            "begin": 567,
+            "end": 761
+        },
+        "8": {
+            "title":"Volume 8",
+            "begin": 762,
+            "end": 968
+        },
+        "9": {
+            "title":"Volume 9",
+            "begin": 969,
+            "end": 1088
+        },
+        "10": {
+            "title":"Volume 10",
+            "begin": 1089,
+            "end": 1201
+        },
+        "11": {
+            "title":"Volume 11",
+            "begin": 1202,
+            "end": 1474
+        },
+        "12": {
+            "title":"Volume 12",
+            "begin": 1475,
+            "end": 1580
+        },
+        "13": {
+            "title":"Volume 13",
+            "begin": 1581,
+            "end": 1783
+        },
+        "14": {
+            "title":"Volume 14",
+            "begin": 1784,
+            "end": 1852
+        },
+        "15": {
+            "title":"Volume 15",
+            "begin": 1853,
+            "end": 1913
+        },
+        "16": {
+            "title":"Volume 16",
+            "begin": 1914,
+            "end": 2103
+        },
+        "17": {
+            "title":"Volume 17",
+            "begin": 2104,
+            "end": 2166
+        },
+        "18": {
+            "title":"Volume 18",
+            "begin": 2167,
+            "end": 2233
+        },
+        "19": {
+            "title":"Volume 19",
+            "begin": 2234,
+            "end": 2268
+        }
+    }
+}

@@ -165,15 +165,18 @@ class NFMarkdowner:
             data = soup.find('div', attrs={"class":u"cha-words"})
 
             if not data:
-                print("WE GOT NO TEXT...")
                 data = soup.find('div', attrs={'id':u'chapter-content'})
+
+            if not data:
+                print("WE GOT NO TEXT...")
 
             for paragraph in data.find_all('p'):
                 if (paragraph.text == '' or paragraph.text.startswith("Chapter") or
                         paragraph.text.startswith("Prologue") or
                         paragraph.text.startswith("Previous Chapter")):
                     paragraph.extract()
-
+                if (paragraph.text.startswith("Translator") ):
+                    paragraph.extract()
             for alink in data.find_all('a', attrs={"class":"chapter-name"}):
                 alink.extract()
 
@@ -206,7 +209,6 @@ class NFMarkdowner:
     def get_chapter_from_index(self, file_name, starts=["Chapter"], nostarts=["Chapters"], last_cmpt=1):
         """ Get the chapter list from an html index file """
         # pylint: disable=dangerous-default-value
-        print("get_chapter_from_index starts")
         with open(file_name, 'r') as opened_file:
             html = opened_file.read()
         soup = bs.BeautifulSoup(html, 'lxml')

@@ -22,6 +22,7 @@ def main():
     parser.add_argument('-b', '--books', nargs='+', help=
                         'Books to make, space separated list. Refers to the json configuration file'
                         )
+    parser.add_argument("-t", "--title", help="Title of the Ebook if not the generic title in configuration file")
     args = parser.parse_args()
 
     # No options called:
@@ -78,11 +79,22 @@ def main():
             print("You must provide a filename for this novel.")
             exit(1)
 
-        if args.books:
-            print("Overwritting options with books values")
-            print(args.books)
-            begin = data["books"][args.books[0]]["begin"]
-            end = data["books"][args.books[-1]]["end"]
+    if args.books:
+        print("~~ Overwritting options with books values")
+        # print(args.books)
+        begin = data["books"][args.books[0]]["begin"]
+        end = data["books"][args.books[-1]]["end"]
+        books_length = args.books.__len__()
+        # print(books_length)
+        if books_length > 0:
+            title += " -- Book"
+            if books_length > 1:
+                title += "s"
+            title += " "
+            title += ",".join(args.books)
+
+    if args.title:
+        title = args.title
 
     print(begin)
     print(end)
