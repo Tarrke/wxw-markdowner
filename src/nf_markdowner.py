@@ -190,6 +190,8 @@ class NFMarkdowner:
                 data_str = data_str.replace('&amp;', '\&')
             if data_str.find("#"):
                 data_str = data_str.replace('#', '\#')
+            if data_str.find("*"):
+                data_str = data_str.replace('*', '\*')
 
             # print(data_str)
 
