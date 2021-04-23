@@ -9,9 +9,9 @@
 
 import argparse
 import json
-from wxw_markdowner import WXWMarkdowner # pylint: disable=unused-import, unresolved-import
-from wco_markdowner import WCOMarkdowner # pylint: disable=unused-import, unresolved-import
-from nf_markdowner  import NFMarkdowner  # pylint: disable=unused-import, unresolved-import
+from wxw_markdowner import WXWMarkdowner # pylint: disable=unused-import
+from wco_markdowner import WCOMarkdowner # pylint: disable=unused-import
+from nf_markdowner  import NFMarkdowner  # pylint: disable=unused-import
 
 
 def main():
@@ -108,6 +108,7 @@ def main():
     my_markdowner.generate_metadata()
 
     my_markdowner.download_index(starts, nostarts)
+    print(my_markdowner.chaps[-1])
     my_markdowner.download_contents(begin=begin, end=end)
 
     print('\n\n')
