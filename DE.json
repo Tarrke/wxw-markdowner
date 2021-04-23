@@ -1,0 +1,38 @@
+{
+    "title": "Desolate Era",
+    "url": "https://novelfull.com/the-desolate-era.html",
+    "begin": 1,
+    "end": 18,
+    "filename": "de",
+    "author": "I Eat Tomatoes, Wo Chi Xi Hong Shi",
+    "starts": ["Book", "Chapter", "Afterword"],
+    "nostarts": ["Chapters", "Translator"],
+    "mdClass": "NFMarkdowner",
+    "books":{
+        "1": {
+            "title":"Book 1 - The Ji Clan of Swallow Mountain",
+            "begin": 1,
+            "end": 18
+        }
+        ,"2": {
+            "title":"Book 2 - The Lake in the East Mountain",
+            "begin": 19,
+            "end": 36
+        }
+        ,"3": {
+            "title":"Book 3 - Comprehending the Dao by the Pond",
+            "begin": 37,
+            "end": 54
+        }
+        ,"4": {
+            "title":"Book 4 - Underwater Estate",
+            "begin": 55,
+            "end": 74
+        }
+        ,"5": {
+            "title":"Book 5 - Zifu Disciple",
+            "begin": 75,
+            "end": 100
+        }
+    }
+}

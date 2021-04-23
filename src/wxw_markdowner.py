@@ -198,7 +198,7 @@ class WXWMarkdowner:
             if (not link.parent.has_attr('class') or (link.parent.has_attr('class') and not
                                                       "chapter-item" in link.parent['class'])):
                 # This is not a chapter link
-                print("Skipped:", link.text.strip())
+                print("Skipped:", link.text.strip(), "not chapter-item class")
                 continue
             if link.has_attr('role') and link['role'] == 'button':
                 print("Skipped button:", link.text.strip())
@@ -209,7 +209,7 @@ class WXWMarkdowner:
                 self.chaps.append((cmpt, 'http://wuxiaworld.com' + link['href'], link.text.strip()))
                 cmpt += 1
             else:
-                print("Skipped:", link.text.strip())
+                print("Skipped:", link.text.strip(), "No good keywords")
             if self.chap_limit > 0 and cmpt > self.chap_limit:
                 break
 

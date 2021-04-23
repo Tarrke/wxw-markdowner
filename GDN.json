@@ -1,0 +1,18 @@
+{
+    "title": "Galactic Dark Net",
+    "url": "https://novelfull.com/galactic-dark-net.html",
+    "begin": 1,
+    "end": 470,
+    "filename": "gdn",
+    "author": "Sonic Nine Light Year",
+    "starts": ["Chapter", "Afterword"],
+    "nostarts": ["Chapters", "Translator"],
+    "mdClass": "NFMarkdowner",
+    "books":{
+        "1": {
+            "title":"Galactic Dark Net",
+            "begin": 1,
+            "end": 470
+        }
+    }
+}
