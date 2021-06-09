@@ -9,6 +9,7 @@
 
 import argparse
 import json
+import re
 from wxw_markdowner import WXWMarkdowner # pylint: disable=unused-import
 from wco_markdowner import WCOMarkdowner # pylint: disable=unused-import
 from nf_markdowner  import NFMarkdowner  # pylint: disable=unused-import
@@ -34,6 +35,7 @@ def main():
     starts = ["Chapter"]
     nostarts = ["Chapters"]
     md_class = "WXWMarkdowner"
+    find_chap = False
 
     print("Config File:", args.configFile)
 
@@ -72,6 +74,12 @@ def main():
             nostarts = data["nostarts"]
         except KeyError:
             pass
+        try:
+            find_chap = data["findChap"]
+            if find_chap:
+                print("should print first chapter then exit...")
+        except KeyError:
+            pass
         # Mandatory
         try:
             filename = data["filename"]
@@ -108,7 +116,16 @@ def main():
     my_markdowner.generate_metadata()
 
     my_markdowner.download_index(starts, nostarts)
-    print(my_markdowner.chaps[-1])
+    print(my_markdowner.chaps[1165])
+
+    if find_chap:
+        p = re.compile('.*chapter 1 .*', re.IGNORECASE)
+        for (c_id, c_link, c_title) in my_markdowner.chaps:
+            if p.match(c_title):
+                print(c_id, c_title)
+            continue
+        exit(0)
+
     my_markdowner.download_contents(begin=begin, end=end)
 
     print('\n\n')
