@@ -1,6 +1,7 @@
 {
     "title": "Desolate Era",
     "url": "https://novelfull.com/the-desolate-era.html",
+    "findChap": false,
     "begin": 1,
     "end": 18,
     "filename": "de",
@@ -9,6 +10,11 @@
     "nostarts": ["Chapters", "Translator"],
     "mdClass": "NFMarkdowner",
     "books":{
+        "0": {
+            "title": "Debug",
+            "begin": 1,
+            "end": 1
+        },
         "1": {
             "title":"Book 1 - The Ji Clan of Swallow Mountain",
             "begin": 1,
@@ -33,6 +39,14 @@
             "title":"Book 5 - Zifu Disciple",
             "begin": 75,
             "end": 100
+        }, "6": {
+            "title":"Books 25 to end",
+            "begin": 806,
+            "end": 1164
+        }, "7": {
+            "title":"Books 25 to end",
+            "begin": 1165,
+            "end": 1451
         }
     }
 }
