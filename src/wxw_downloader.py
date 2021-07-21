@@ -116,7 +116,7 @@ def main():
     my_markdowner.generate_metadata()
 
     my_markdowner.download_index(starts, nostarts)
-    print(my_markdowner.chaps[1165])
+    print(my_markdowner.chaps[-1])
 
     if find_chap:
         p = re.compile('.*chapter 1 .*', re.IGNORECASE)

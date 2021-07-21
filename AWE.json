@@ -1,0 +1,29 @@
+{
+    "title": "A Will Eternal",
+    "url": "https://novelfull.com/a-will-eternal.html",
+    "findChap": false,
+    "begin": 1,
+    "end": 1315,
+    "filename": "awe",
+    "author": "Er Gen",
+    "starts": ["Book", "Chapter", "Afterword"],
+    "nostarts": ["Chapters", "Translator"],
+    "mdClass": "NFMarkdowner",
+    "books":{
+        "0": {
+            "title": "Debug",
+            "begin": 1,
+            "end": 1
+        },
+        "1": {
+            "title":"A Will Eternal",
+            "begin": 1,
+            "end": 700
+        },
+        "2": {
+            "title":"A Will Eternal",
+            "begin": 701,
+            "end": 1315
+        }
+    }
+}
